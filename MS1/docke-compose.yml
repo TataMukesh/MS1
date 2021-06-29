@@ -1,0 +1,28 @@
+version: '3'
+services: 
+  app:
+    build:
+      context: ./
+        volumes: 
+          - .:/Experiments/MS1:rw
+        network: common
+      ports: 
+          - "8080:8081"
+      container_name: my-go-app
+  networks: 
+    common
+  db:
+    image: mysql:latest
+      ports:
+        - 3306:3306
+      environment: 
+        MYSQL_ROOT_PASSWORD: "qwerty65"
+        MYSQL_USER: "root"
+        MYSQL_PASSWORD: "qwerty65"
+        MYSQL_DATABASE: "db1"
+        container_name: "db1-container"
+      command: 
+        - --default-authentication-plugin=mysql_native_password
+networks:
+  common: 
+    name: "exp1"
